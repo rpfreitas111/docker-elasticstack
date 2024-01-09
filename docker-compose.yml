@@ -17,7 +17,7 @@ services:
       - ./logstash/pipeline:/usr/share/logstash/pipeline/
       - ./logstash/config:/usr/share/logstash/config/
     networks:
-      - prometheus_network
+      - elastic_network
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
@@ -87,7 +87,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
     networks:
-      - prometheus_network
+      - elastic_network
     ports:
       - ${ES_PORT}:9200
     environment:
@@ -130,7 +130,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata02:/usr/share/elasticsearch/data
     networks:
-      - prometheus_network
+      - elastic_network
     environment:
       - node.name=es02
       - cluster.name=${CLUSTER_NAME}
@@ -170,7 +170,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata03:/usr/share/elasticsearch/data
     networks:
-      - prometheus_network
+      - elastic_network
     environment:
       - node.name=es03
       - cluster.name=${CLUSTER_NAME}
@@ -215,7 +215,7 @@ services:
       - certs:/usr/share/kibana/config/certs
       - kibanadata:/usr/share/kibana/data
     networks:
-      - prometheus_network
+      - elastic_network
     ports:
       - ${KIBANA_PORT}:5601
     environment:
