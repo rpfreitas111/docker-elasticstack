@@ -1,5 +1,5 @@
 # docker-elasticstack
-
+Repositório fork para estudo e aprendizado do treinamento para especialista de observabilidade, utilizando elasticsearch e prometheus.
 ## O que é esse projeto
 
 Esse é um projeto, para ser utilizado nos cursos da observability school, nossos laboratórios serão baseados nesse repo.

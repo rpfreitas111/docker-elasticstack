@@ -9,13 +9,15 @@ services:
         condition: service_healthy
       es03:
         condition: service_healthy
-    links:
-      - es01
-      - es02
-      - es03
+    # links:
+    #   - es01
+    #   - es02
+    #   - es03
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline/
       - ./logstash/config:/usr/share/logstash/config/
+    networks:
+      - prometheus_network
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
@@ -84,6 +86,8 @@ services:
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
+    networks:
+      - prometheus_network
     ports:
       - ${ES_PORT}:9200
     environment:
@@ -125,6 +129,8 @@ services:
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata02:/usr/share/elasticsearch/data
+    networks:
+      - prometheus_network
     environment:
       - node.name=es02
       - cluster.name=${CLUSTER_NAME}
@@ -163,6 +169,8 @@ services:
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata03:/usr/share/elasticsearch/data
+    networks:
+      - prometheus_network
     environment:
       - node.name=es03
       - cluster.name=${CLUSTER_NAME}
@@ -206,6 +214,8 @@ services:
     volumes:
       - certs:/usr/share/kibana/config/certs
       - kibanadata:/usr/share/kibana/data
+    networks:
+      - prometheus_network
     ports:
       - ${KIBANA_PORT}:5601
     environment:
@@ -224,6 +234,9 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+networks:
+  elastic_network:
+    driver: bridge
 volumes:
   certs:
     driver: local
