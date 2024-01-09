@@ -225,7 +225,7 @@ services:
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
       - SERVER_PUBLICBASEURL=http://172.203.192.117
-    mem_limit: ${MEM_LIMIT}
+    # mem_limit: ${MEM_LIMIT}
     healthcheck:
       test:
         [
